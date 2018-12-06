@@ -1,45 +1,63 @@
-package templates
+package com.cberry.SpringSite.view
 
-import com.cberry.SpringSite.controller.KotlinxMessage
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import java.io.StringWriter
 
-fun render(title: String, messages: List<KotlinxMessage>) =
+fun render() =
         StringWriter().appendHTML().html {
-            head {
-                title { +"Test" }
-                meta {
-                    charset = "utf-8"
-                }
-                meta {
-                    name="viewport"
-                    content="width=device=width, initial-scale=1, shrink-to-fit=no"
-                }
-                link {
-                    rel = "stylesheet"
-                    href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-                    integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-                    crossorigin = "anonymous"
-                }
-            }
-            body {
-                div {
-                    classes = setOf("container")
+            renderHead()
+            renderBody()
+        }.toString()
+
+fun HTML.renderBody() {
+    body {
+        div(classes = "container") {
+            div (classes = "row") {
+                div (classes = "col-sm") {
                     p { +"This is using kotlinx" }
-                    span {
-                        classes = setOf("badge badge-success")
+                }
+                div (classes = "col-sm") {
+                    span(classes = "badge badge-success") {
                         +"Nailed It"
                     }
                 }
-                script {
-                    src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min/js"
-                }
-                script {
-                    src = "js/bootstrap.min.js"
-                }
             }
-        }.toString()
+        }
+        bootstrapScripts()
+    }
+}
+
+fun HTML.renderHead() {
+    head {
+        meta {
+            charset = "utf-8"
+        }
+        meta {
+            name = "viewport"
+            content = "width=device=width, initial-scale=1, shrink-to-fit=no"
+        }
+        bootstrapLink()
+        title { +"Test" }
+    }
+}
+
+fun HEAD.bootstrapLink() =
+    link {
+        rel = "stylesheet"
+        href = "https://maxcdn.bootstrapcdn.com/bootstrapLink/4.0.0/css/bootstrapLink.min.css"
+        integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin = "anonymous"
+    }
+
+fun BODY.bootstrapScripts() {
+    script {
+        src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min/js"
+    }
+    script {
+        src = "js/bootstrapLink.min.js"
+    }
+}
 
 var LINK.integrity: String
     get()  = attributes["integrity"] ?: ""
