@@ -37,13 +37,21 @@ compileTestKotlin {
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
+	implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	implementation('org.springframework.boot:spring-boot-devtools')
+
+	def kotlinx_html_version = "0.6.10"
+
+	// include for server side
+	compile "org.jetbrains.kotlinx:kotlinx-html-jvm:${kotlinx_html_version}"
 }
