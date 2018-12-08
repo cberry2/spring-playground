@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
-import com.cberry.SpringSite.view.render
+import templates.render
 
 data class KotlinxMessage(val id: Int, var message: String)
 
@@ -24,7 +24,7 @@ class KotlinxController {
 
     @ResponseBody
     @GetMapping("/kotlinx")
-    fun get(): String = render()
+    fun get(): String = render("Test", messages)
 
     @PostMapping("/kotlinx")
     fun post(@RequestParam message: String): String {
