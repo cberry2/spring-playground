@@ -22,6 +22,7 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.cberry'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
@@ -39,7 +40,6 @@ repositories {
 	mavenCentral()
 	jcenter()
 }
-
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')

@@ -1,68 +1,64 @@
-package com.cberry.SpringSite.view
+package templates
 
+import com.cberry.SpringSite.controller.KotlinxMessage
+import com.cberry.SpringSite.view.core.crossorigin
+import com.cberry.SpringSite.view.core.integrity
 import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import java.io.StringWriter
 
-fun render() =
+fun render(title: String, messages: List<KotlinxMessage>) =
         StringWriter().appendHTML().html {
-            renderHead()
-            renderBody()
-        }.toString()
-
-fun HTML.renderBody() {
-    body {
-        div(classes = "container") {
-            div (classes = "row") {
-                div (classes = "col-sm") {
-                    p { +"This is using kotlinx" }
+            head {
+                title { +title }
+                meta {
+                    charset = "utf-8"
                 }
-                div (classes = "col-sm") {
-                    span(classes = "badge badge-success") {
+                meta {
+                    name="viewport"
+                    content="width=device=width, initial-scale=1, shrink-to-fit=no"
+                }
+                link {
+                    rel = "stylesheet"
+                    href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                    integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                    crossorigin = "anonymous"
+                }
+            }
+            body {
+                div {
+                    classes = setOf("container")
+                    p { +"This is using kotlinx" }
+                    renderMessages(messages)
+                    span {
+                        classes = setOf("badge badge-success")
                         +"Nailed It"
                     }
                 }
+                script {
+                    src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min/js"
+                }
+                script {
+                    src = "js/bootstrap.min.js"
+                }
+            }
+        }.toString()
+
+private fun DIV.renderMessages(messages: List<KotlinxMessage>) {
+    table(classes = "table") {
+        thead {
+            tr {
+                th(ThScope.col) { +"#" }
+                th(ThScope.col) { +"Message" }
             }
         }
-        bootstrapScripts()
-    }
-}
-
-fun HTML.renderHead() {
-    head {
-        meta {
-            charset = "utf-8"
+        tbody {
+            messages.forEachIndexed { index, kotlinxMessage ->
+                tr {
+                    td { +index.plus(1).toString()}
+                    td { +kotlinxMessage.message}
+                }
+            }
         }
-        meta {
-            name = "viewport"
-            content = "width=device=width, initial-scale=1, shrink-to-fit=no"
-        }
-        bootstrapLink()
-        title { +"Test" }
     }
 }
-
-fun HEAD.bootstrapLink() =
-    link {
-        rel = "stylesheet"
-        href = "https://maxcdn.bootstrapcdn.com/bootstrapLink/4.0.0/css/bootstrapLink.min.css"
-        integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin = "anonymous"
-    }
-
-fun BODY.bootstrapScripts() {
-    script {
-        src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min/js"
-    }
-    script {
-        src = "js/bootstrapLink.min.js"
-    }
-}
-
-var LINK.integrity: String
-    get()  = attributes["integrity"] ?: ""
-    set(newValue) { attributes["integrity"] = newValue}
-
-var LINK.crossorigin: String
-    get()  = attributes["crossorigin"] ?: ""
-    set(newValue) { attributes["crossorigin"] = newValue}
