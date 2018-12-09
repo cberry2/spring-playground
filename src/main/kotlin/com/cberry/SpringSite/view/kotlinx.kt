@@ -9,40 +9,58 @@ import java.io.StringWriter
 
 fun render(title: String, messages: List<KotlinxMessage>) =
         StringWriter().appendHTML().html {
-            head {
-                title { +title }
-                meta {
-                    charset = "utf-8"
-                }
-                meta {
-                    name="viewport"
-                    content="width=device=width, initial-scale=1, shrink-to-fit=no"
-                }
-                link {
-                    rel = "stylesheet"
-                    href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-                    integrity = "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-                    crossorigin = "anonymous"
-                }
-            }
-            body {
-                div {
-                    classes = setOf("container")
+            renderHead(title)
+            renderBody(messages)
+        }.toString()
+
+fun HTML.renderBody(messages: List<KotlinxMessage>) {
+    body {
+        div(classes = "container") {
+            div (classes = "row") {
+                div (classes = "col-sm") {
                     p { +"This is using kotlinx" }
-                    renderMessages(messages)
-                    span {
-                        classes = setOf("badge badge-success")
+                }
+                renderMessages(messages)
+                div (classes = "col-sm") {
+                    span(classes = "badge badge-success") {
                         +"Nailed It"
                     }
                 }
-                script {
-                    src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min/js"
-                }
-                script {
-                    src = "js/bootstrap.min.js"
-                }
             }
-        }.toString()
+        }
+        bootstrapScripts()
+    }
+}
+
+fun HTML.renderHead(title: String) {
+    head {
+        meta {
+            charset = "utf-8"
+        }
+        meta {
+            name = "viewport"
+            content = "width=device=width, initial-scale=1, shrink-to-fit=no"
+        }
+        bootstrapLink()
+        title { +title }
+    }
+}
+
+fun HEAD.bootstrapLink() =
+        link {
+            rel = "stylesheet"
+            href = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity = "sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin = "anonymous"
+        }
+
+fun BODY.bootstrapScripts() {
+    script {
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"
+    }
+}
 
 private fun DIV.renderMessages(messages: List<KotlinxMessage>) {
     table(classes = "table") {
