@@ -1,4 +1,4 @@
-package com.cberry.SpringSite.model
+package com.cberry.springsite.model
 
 data class PersonForm(
         var name: String = "",

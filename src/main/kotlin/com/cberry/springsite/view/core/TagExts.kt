@@ -1,4 +1,4 @@
-package com.cberry.SpringSite.view.core
+package com.cberry.springsite.view.core
 
 import kotlinx.html.LINK
 import kotlinx.html.SCRIPT

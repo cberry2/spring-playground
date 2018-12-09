@@ -1,6 +1,6 @@
-package com.cberry.SpringSite.controller
+package com.cberry.springsite.controller
 
-import com.cberry.SpringSite.model.PersonForm
+import com.cberry.springsite.model.PersonForm
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
@@ -33,9 +33,6 @@ class HomeController : WebMvcConfigurer {
     @PostMapping("/")
     fun checkPersonInfo(@Valid personForm: PersonForm, bindingResult: BindingResult): String =
             if (bindingResult.hasErrors()) "form" else "redirect:/results"
-//
-//    @GetMapping("/error")
-//    fun showError(error: String) = error
 
     @GetMapping("/error")
     fun showError() = "error"

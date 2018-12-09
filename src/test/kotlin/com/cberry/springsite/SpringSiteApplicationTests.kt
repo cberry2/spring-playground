@@ -1,4 +1,4 @@
-package com.cberry.SpringSite
+package com.cberry.springsite
 
 import org.junit.Test
 import org.junit.runner.RunWith

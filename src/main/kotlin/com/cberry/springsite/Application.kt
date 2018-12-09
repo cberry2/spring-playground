@@ -1,4 +1,4 @@
-package com.cberry.SpringSite
+package com.cberry.springsite
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

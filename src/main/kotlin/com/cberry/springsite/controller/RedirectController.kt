@@ -1,4 +1,4 @@
-package com.cberry.SpringSite.controller
+package com.cberry.springsite.controller
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
