@@ -6,6 +6,7 @@ import org.hibernate.cfg.Configuration
 import org.hibernate.testing.junit4.BaseCoreFunctionalTestCase
 import org.hibernate.testing.transaction.TransactionUtil.doInHibernate
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Test
 import java.io.IOException
 import java.util.*
@@ -68,5 +69,11 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
 
             assertTrue(personToSave == personFound)
         })
+    }
+
+    @Test
+    fun travisFailTest()
+    {
+        fail("Sorry travis")
     }
 }
