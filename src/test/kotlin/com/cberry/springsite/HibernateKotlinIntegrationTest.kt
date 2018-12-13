@@ -12,8 +12,7 @@ import java.util.*
 
 
 class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
-
-
+    
     private val properties: Properties
         @Throws(IOException::class)
         get() {
