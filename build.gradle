@@ -3,6 +3,7 @@ buildscript {
 		kotlinVersion = '1.2.71'
 		springBootVersion = '2.1.1.RELEASE'
 		kotlinx_html_version = "0.6.10"
+		junit_jupiter_version = '5.3.1'
 	}
 	repositories {
 		mavenCentral()
@@ -75,4 +76,14 @@ dependencies {
 
 	// include for server side
 	compile "org.jetbrains.kotlinx:kotlinx-html-jvm:${kotlinx_html_version}"
+
+	testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_jupiter_version}"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_jupiter_version}"
+
+	testCompile group: 'junit', name: 'junit', version: '4.12'
+	testRuntime "org.junit.vintage:junit-vintage-engine:${junit_jupiter_version}"
+}
+
+test {
+	useJUnitPlatform()
 }

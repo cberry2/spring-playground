@@ -21,7 +21,7 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
             return properties
         }
 
-    /******************************** Setup ********************************/
+    /******************************** Tests ********************************/
 
     override fun getAnnotatedClasses(): Array<Class<*>> {
         return arrayOf(Person::class.java, PhoneNumber::class.java)
