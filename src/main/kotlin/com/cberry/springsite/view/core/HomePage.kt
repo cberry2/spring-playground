@@ -72,6 +72,7 @@ private fun BODY.renderNavBar() {
                     }
                     div(classes = "dropdown-menu") {
                         attributes["aria-labelledby"] = "navbarDropdown"
+                        dropdownItem("Table", "/kotlinx")
                         dropdownItem("Stupid", "/stupid")
                         dropdownItem("Redirect", "/redirect")
                         dropdownItem("Test HTML Wrapper", "/wrapper")

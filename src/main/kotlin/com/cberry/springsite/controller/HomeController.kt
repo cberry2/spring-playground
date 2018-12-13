@@ -19,10 +19,13 @@ class HomeController : WebMvcConfigurer {
 //    fun home(): String = "SuperTEst"
 
     @GetMapping("/")
+    fun home() = "forward:/kotlinx"
+
+    @GetMapping("/form")
     fun showForm(personForm: PersonForm): String = "form"
 
-    @GetMapping("/stupid")
-    fun showStupid(): String = "stupid"
+//    @GetMapping("/stupid")
+//    fun showStupid(): String = "stupid"
 
     @GetMapping("/redirected")
     fun showRedirected(model: MutableMap<String, Any>): String {
