@@ -2,6 +2,8 @@ package com.cberry.springsite.model
 
 import javax.persistence.*
 
+//"CREATE TABLE PERSON(ID INT PRIMARY KEY, NAME VARCHAR(255));"
+
 @Entity
 data class Person @JvmOverloads constructor(
         @[Id GeneratedValue(strategy = GenerationType.IDENTITY)] val id: Int,

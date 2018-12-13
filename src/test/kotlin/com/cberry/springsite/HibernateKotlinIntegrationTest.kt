@@ -12,7 +12,7 @@ import java.util.*
 
 
 class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
-    
+
     private val properties: Properties
         @Throws(IOException::class)
         get() {
@@ -20,6 +20,8 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
             properties.load(javaClass.classLoader.getResourceAsStream("hibernate.properties"))
             return properties
         }
+
+    /******************************** Setup ********************************/
 
     override fun getAnnotatedClasses(): Array<Class<*>> {
         return arrayOf(Person::class.java, PhoneNumber::class.java)
@@ -29,6 +31,8 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
         super.configure(configuration)
         configuration.properties = properties
     }
+
+    /******************************** Tests ********************************/
 
     @Test
     fun givenPersonWithFullData_whenSaved_thenFound() {
