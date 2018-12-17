@@ -71,9 +71,9 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
         })
     }
 
-    @Test
-    fun travisFailTest()
-    {
-        fail("Sorry travis")
-    }
+//    @Test
+//    fun travisFailTest()
+//    {
+//        fail("Sorry travis")
+//    }
 }
