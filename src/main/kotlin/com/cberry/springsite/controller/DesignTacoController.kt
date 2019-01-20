@@ -33,12 +33,12 @@ class DesignTacoController {
         )
 
         val typeDescriptions = mapOf(
-                Type.WRAP    to "Designate your wrap",
-                Type.CHEESE  to "Choose your cheese",
+                Type.WRAP to "Designate your wrap",
+                Type.CHEESE to "Choose your cheese",
                 Type.PROTEIN to "Pick your protein",
-                Type.SAUCE   to "Select your sauce",
+                Type.SAUCE to "Select your sauce",
                 Type.VEGGIES to "Determine your veggies"
-            )
+        )
     }
 
     @ResponseBody
@@ -57,66 +57,58 @@ class DesignTacoController {
         return "redirect:/taco"
     }
 
-    private fun renderDesignForm(ingredientByTypeMap: Map<Type, List<Ingredient>>) : String =
-        homeWrapper("Taco Cloud", "taco") {
-            div(classes = "container") {
-                h1 { +"Design your taco!" }
-                img(classes = "home-img") {
-                    src = "/tacos.webp"
-                }
+    private fun renderDesignForm(ingredientByTypeMap: Map<Type, List<Ingredient>>): String =
+            homeWrapper("Taco Cloud", "taco") {
+                div(classes = "container") {
+                    h1 { +"Design your taco!" }
+                    img(classes = "home-img") {
+                        src = "/tacos.webp"
+                    }
 
-                form {
-                    method = FormMethod.post
-                    div(classes = "grid") {
-                        div(classes = "row") {
-                            renderIngredientGroup(Type.WRAP, ingredientByTypeMap)
-                            renderIngredientGroup(Type.PROTEIN, ingredientByTypeMap)
-                        }
-                        div(classes = "row") {
-                            renderIngredientGroup(Type.VEGGIES, ingredientByTypeMap)
-                            renderIngredientGroup(Type.CHEESE, ingredientByTypeMap)
-                        }
-                        div(classes = "row") {
-                            renderIngredientGroup(Type.SAUCE, ingredientByTypeMap)
-                        }
-                        div(classes = "row") {
-                            div(classes = "col") {
-                                h3 { +"Name your taco creation:" }
-                                input {
-                                    type = InputType.text
-                                    name = "name"
+                    form {
+                        method = FormMethod.post
+                        div(classes = "grid") {
+                            div(classes = "row") {
+                                renderIngredientGroup(Type.WRAP, ingredientByTypeMap)
+                                renderIngredientGroup(Type.PROTEIN, ingredientByTypeMap)
+                            }
+                            div(classes = "row") {
+                                renderIngredientGroup(Type.VEGGIES, ingredientByTypeMap)
+                                renderIngredientGroup(Type.CHEESE, ingredientByTypeMap)
+                            }
+                            div(classes = "row") {
+                                renderIngredientGroup(Type.SAUCE, ingredientByTypeMap)
+                            }
+                            div(classes = "row") {
+                                div(classes = "col") {
+                                    h3 { +"Name your taco creation:" }
+                                    input {
+                                        type = InputType.text
+                                        name = "name"
+                                    }
+                                    button { +"Submit your taco" }
                                 }
-                                button { +"Submit your taco" }
                             }
                         }
                     }
                 }
             }
-        }
 
-    private fun DIV.renderIngredientGroup(type: Type, ingredientByTypeMap: Map<Type, List<Ingredient>>) {
-        ingredientByTypeMap[type]?.let { ingredients ->
-            renderIngredientGroup(
-                    typeDescriptions[type].orEmpty(),
-                    type.toString().toLowerCase(),
-                    ingredients
-            )
-        }
-    }
-
-    private fun DIV.renderIngredientGroup(headerText: String, ingredientType: String, ingredients: List<Ingredient>) {
-        div(classes = "ingredient-group col") {
-            id = "${ingredientType}s"
-            h3 { +"$headerText:" }
-            ingredients.forEach { ingredient ->
-                div {
-                    input {
-                        id = ingredient.id
-                        name = "ingredients"
-                        type = InputType.checkBox
-                        value = ingredient.id
+    private fun DIV.renderIngredientGroup(ingredientType: Type, ingredientByTypeMap: Map<Type, List<Ingredient>>) {
+        ingredientByTypeMap[ingredientType]?.let { ingredients ->
+            div(classes = "ingredient-group col") {
+                id = "${ingredientType.toString().toLowerCase()}s"
+                h3 { +"${typeDescriptions[ingredientType].orEmpty()}:" }
+                ingredients.forEach { ingredient ->
+                    div {
+                        input {
+                            id = ingredient.id
+                            name = "ingredients"
+                            type = InputType.checkBox
+                            value = ingredient.id
+                        }
+                        span { +ingredient.name }
                     }
-                    span { +ingredient.name }
                 }
             }
         }

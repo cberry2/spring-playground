@@ -37,8 +37,8 @@ class HomeController : WebMvcConfigurer {
     fun checkPersonInfo(@Valid personForm: PersonForm, bindingResult: BindingResult): String =
             if (bindingResult.hasErrors()) "form" else "redirect:/results"
 
-    @GetMapping("/error")
-    fun showError() = "error"
+//    @GetMapping("/error")
+//    fun showError() = "error"
 
     override fun addViewControllers(registry: ViewControllerRegistry) =
             registry.addViewController("/results").setViewName("results")
