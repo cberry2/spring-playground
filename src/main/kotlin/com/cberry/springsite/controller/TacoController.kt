@@ -1,6 +1,7 @@
 package com.cberry.springsite.controller
 
 import com.cberry.springsite.view.core.homeWrapper
+import kotlinx.html.a
 import kotlinx.html.div
 import kotlinx.html.h1
 import kotlinx.html.img
@@ -21,6 +22,10 @@ class TacoController {
                 h1 { +"Taco Cloud" }
                 img(classes = "home-img") {
                     src = "/tacos.webp"
+                }
+                a {
+                    href="/taco/design"
+                    +"Design a taco"
                 }
             }
         }

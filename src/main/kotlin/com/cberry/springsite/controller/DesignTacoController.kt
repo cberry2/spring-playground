@@ -1,11 +1,13 @@
 package com.cberry.springsite.controller
 
 import com.cberry.springsite.model.Ingredient
+import com.cberry.springsite.model.Taco
 import com.cberry.springsite.model.Type
 import com.cberry.springsite.view.core.homeWrapper
 import kotlinx.html.*
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 
@@ -31,10 +33,10 @@ class DesignTacoController {
         )
 
         val typeDescriptions = mapOf(
-                Type.WRAP to "Designate your wrap",
-                Type.CHEESE to "Choose your cheese",
+                Type.WRAP    to "Designate your wrap",
+                Type.CHEESE  to "Choose your cheese",
                 Type.PROTEIN to "Pick your protein",
-                Type.SAUCE to "Select your sauce",
+                Type.SAUCE   to "Select your sauce",
                 Type.VEGGIES to "Determine your veggies"
             )
     }
@@ -49,6 +51,12 @@ class DesignTacoController {
         return renderDesignForm(ingredientByTypeMap)
     }
 
+    @PostMapping
+    fun processDesign(taco: Taco): String {
+        log.info("Processing taco design: $taco")
+        return "redirect:/taco"
+    }
+
     private fun renderDesignForm(ingredientByTypeMap: Map<Type, List<Ingredient>>) : String =
         homeWrapper("Taco Cloud", "taco") {
             div(classes = "container") {
@@ -59,33 +67,57 @@ class DesignTacoController {
 
                 form {
                     method = FormMethod.post
-
                     div(classes = "grid") {
-                        ingredientByTypeMap.forEach { entry ->
-                            renderIngredientGroup(
-                                    typeDescriptions[entry.key].orEmpty(),
-                                    entry.key.toString().toLowerCase(),
-                                    entry.value
-                            )
+                        div(classes = "row") {
+                            renderIngredientGroup(Type.WRAP, ingredientByTypeMap)
+                            renderIngredientGroup(Type.PROTEIN, ingredientByTypeMap)
+                        }
+                        div(classes = "row") {
+                            renderIngredientGroup(Type.VEGGIES, ingredientByTypeMap)
+                            renderIngredientGroup(Type.CHEESE, ingredientByTypeMap)
+                        }
+                        div(classes = "row") {
+                            renderIngredientGroup(Type.SAUCE, ingredientByTypeMap)
+                        }
+                        div(classes = "row") {
+                            div(classes = "col") {
+                                h3 { +"Name your taco creation:" }
+                                input {
+                                    type = InputType.text
+                                    name = "name"
+                                }
+                                button { +"Submit your taco" }
+                            }
                         }
                     }
                 }
             }
         }
 
-    private fun DIV.renderIngredientGroup(headerText: String, ingredientType: String, ingredients: List<Ingredient>) {
-        div(classes = "ingredient-group") {
-            id = "${ingredientType}s"
+    private fun DIV.renderIngredientGroup(type: Type, ingredientByTypeMap: Map<Type, List<Ingredient>>) {
+        ingredientByTypeMap[type]?.let { ingredients ->
+            renderIngredientGroup(
+                    typeDescriptions[type].orEmpty(),
+                    type.toString().toLowerCase(),
+                    ingredients
+            )
         }
-        h3 { +"$headerText:" }
-        ingredients.forEach { ingredient ->
-            div {
-                input {
-                    id = ingredient.id
-                    name = "ingredients"
-                    type = InputType.checkBox
+    }
+
+    private fun DIV.renderIngredientGroup(headerText: String, ingredientType: String, ingredients: List<Ingredient>) {
+        div(classes = "ingredient-group col") {
+            id = "${ingredientType}s"
+            h3 { +"$headerText:" }
+            ingredients.forEach { ingredient ->
+                div {
+                    input {
+                        id = ingredient.id
+                        name = "ingredients"
+                        type = InputType.checkBox
+                        value = ingredient.id
+                    }
+                    span { +ingredient.name }
                 }
-                span { +ingredient.name }
             }
         }
     }
