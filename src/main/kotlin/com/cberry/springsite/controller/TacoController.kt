@@ -15,7 +15,7 @@ class TacoController {
     @GetMapping("/taco")
     fun getTacoHome(): String = renderTacoHome()
 
-    private fun renderTacoHome(): String =
+    fun renderTacoHome(): String =
         homeWrapper("Taco Cloud", "taco") {
             div(classes = "container") {
                 h1 { +"Taco Cloud" }

@@ -1,8 +1,15 @@
 package com.cberry.springsite.model
 
-import org.springframework.boot.convert.DataSizeUnit
+data class Ingredient(
+    val id: String,
+    val name: String,
+    val type: Type
+)
 
-
-
-class Ingredient {
+enum class Type {
+    WRAP,
+    PROTEIN,
+    VEGGIES,
+    CHEESE,
+    SAUCE
 }
