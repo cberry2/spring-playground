@@ -4,13 +4,13 @@ import kotlinx.html.*
 import kotlinx.html.stream.appendHTML
 import java.io.StringWriter
 
-fun homeWrapper(title: String, block: BODY.() -> Unit) =
+fun homeWrapper(title: String, css: String = "", block: BODY.() -> Unit) =
     StringWriter().appendHTML().html {
-        renderHead(title)
+        renderHead(title, css)
         renderBody(block)
     }.toString()
 
-fun HTML.renderHead(title: String) {
+fun HTML.renderHead(title: String, css: String = "") {
     head {
         meta {
             charset = "utf-8"
@@ -19,10 +19,17 @@ fun HTML.renderHead(title: String) {
             name = "viewport"
             content = "width=device=width, initial-scale=1, shrink-to-fit=no"
         }
+        if (css.isNotBlank()) addStyle(css)
         bootstrapCssLink()
         title { +title }
     }
 }
+
+fun HEAD.addStyle(css: String) =
+        link {
+            rel = "stylesheet"
+            href = "/css/$css.css"
+        }
 
 fun HEAD.bootstrapCssLink() =
         link {
