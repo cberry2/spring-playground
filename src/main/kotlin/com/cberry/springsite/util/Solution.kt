@@ -1,10 +1,5 @@
 package com.cberry.springsite.util
 
-fun main(args:Array<String>) {
-    val arr = twoSum(listOf(0, 4, 3, 0).toIntArray(), 0).toString()
-    arr.forEach { println(it) }
-}
-
 
 fun twoSum(nums: IntArray, target: Int): IntArray {
     val complementMap = nums
